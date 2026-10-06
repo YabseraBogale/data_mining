@@ -1,64 +1,63 @@
-DROP DATABASE IF EXISTS `deliber`;
 CREATE DATABASE `deliber`; 
 USE `deliber`;
 
 CREATE TABLE Users (
-        id                                              INT,
-        name                                    VARCHAR(40),
-        phone_number                    VARCHAR(20),
+        id         INT,
+        name VARCHAR(40),
+        phone_number VARCHAR(20),
         PRIMARY KEY (id)
 ) engine=innodb;
                 
 
 CREATE TABLE Customers (
-        cid                                             INT,
-        address                                 VARCHAR(100),
-    nickname                            VARCHAR(40),
+        cid INT,
+        address VARCHAR(100),
+    nickname VARCHAR(40),
         PRIMARY KEY (cid),
         FOREIGN KEY (cid) REFERENCES Users(id)
 ) engine=innodb;
                 
 
 CREATE TABLE Credit_cards (
-        card_number                             VARCHAR(20), 
-        expr_date                               CHAR(6),
-        cid                                             INT,
+        card_number VARCHAR(20), 
+        expr_date CHAR(6),
+        cid INT,
         PRIMARY KEY (card_number),
         FOREIGN KEY (cid) REFERENCES Customers(cid)
 ) engine=innodb;
                 
 
 CREATE TABLE Drivers (
-        did                                             INT,
-        ssn                                             CHAR(9),
-        bank_account_number             VARCHAR(20),
-        bank_account_routing_number     VARCHAR(20),
+        did INT,
+        ssn CHAR(9),
+        bank_account_number VARCHAR(20),
+        bank_account_routing_number VARCHAR(20),
         PRIMARY KEY (did),
         FOREIGN KEY (did) REFERENCES Users(id)
 ) engine=innodb;
                 
 
 CREATE TABLE Restaurants (
-        rid                                                             INT,
-        name                                                    VARCHAR(40),
-        address                                                 VARCHAR(100),
-        bank_account_number                             VARCHAR(20),
-        bank_account_routing_number             VARCHAR(20),
+        rid INT,
+        name VARCHAR(40),
+        address VARCHAR(100),
+        bank_account_number VARCHAR(20),
+        bank_account_routing_number VARCHAR(20),
         last_bank_transaction_datetime  DATETIME, 
         PRIMARY KEY (rid)
 ) engine=innodb;
 
 CREATE TABLE Restaurants_cuisine (
-        rid                             INT,
-    cuisine_type        VARCHAR(20),                            
+        rid INT,
+    cuisine_type VARCHAR(20),                            
         PRIMARY KEY (rid, cuisine_type),
         FOREIGN KEY (rid) REFERENCES Restaurants(rid)
 ) engine=innodb;
 
 CREATE TABLE Customers_review (
-        cid                                     INT,
-        rid                                     INT,
-        rating                          INT,
+        cid INT,
+        rid INT,
+        rating INT,
     customer_comment    VARCHAR(100),                           
         PRIMARY KEY (cid,rid),
         FOREIGN KEY (cid) REFERENCES Customers(cid),
@@ -67,12 +66,12 @@ CREATE TABLE Customers_review (
 
 
 CREATE TABLE Orders (
-        oid                                     INT,
-        cid                                     INT,  
-        did                                     INT,  
-        rid                                     INT, 
-        order_datetime          DATETIME, 
-        total_amount            DECIMAL(7,2), 
+        oid INT,
+        cid INT,  
+        did INT,  
+        rid INT, 
+        order_datetime DATETIME, 
+        total_amount DECIMAL(7,2), 
         PRIMARY KEY (oid),
         FOREIGN KEY (cid) REFERENCES Customers(cid),
         FOREIGN KEY (did) REFERENCES Drivers(did),
@@ -86,8 +85,8 @@ CREATE TABLE Orders_status_code_text (
 ) engine=innodb;
 
 CREATE TABLE Orders_track_status (
-        oid                                             INT,
-        order_status_code               INT,
+        oid INT,
+        order_status_code INT,
         order_status_datetime   DATETIME,
         PRIMARY KEY (oid, order_status_code),
         FOREIGN KEY (oid) REFERENCES Orders(oid),
@@ -95,19 +94,19 @@ CREATE TABLE Orders_track_status (
 ) engine=innodb;
 
 CREATE TABLE Dishes (
-        rid                                     INT,
-        name                            VARCHAR(40),
-        price                           DECIMAL(6,2),
+        rid INT,
+        name VARCHAR(40),
+        price DECIMAL(6,2),
         PRIMARY KEY (rid, name),
         FOREIGN KEY (rid) REFERENCES Restaurants(rid)
 ) engine=innodb;
                 
 
 CREATE TABLE Orders_Contain_Dishes (
-        oid                                     INT,
-        rid                                     INT,
-        name                            VARCHAR(40),
-        quantity                        INT,
+        oid INT,
+        rid INT,
+        name VARCHAR(40),
+        quantity INT,
         PRIMARY KEY (oid, rid, name),
         FOREIGN KEY (oid) REFERENCES Orders (oid),
         FOREIGN KEY (rid, name) REFERENCES Dishes(rid, name)
