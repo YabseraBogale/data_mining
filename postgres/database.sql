@@ -6,7 +6,7 @@ CREATE TABLE Users (
         name VARCHAR(40),
         phone_number VARCHAR(20),
         PRIMARY KEY (id)
-) engine=innodb;
+);
                 
 
 CREATE TABLE Customers (
@@ -15,7 +15,7 @@ CREATE TABLE Customers (
     nickname VARCHAR(40),
         PRIMARY KEY (cid),
         FOREIGN KEY (cid) REFERENCES Users(id)
-) engine=innodb;
+);
                 
 
 CREATE TABLE Credit_cards (
@@ -24,7 +24,7 @@ CREATE TABLE Credit_cards (
         cid INT,
         PRIMARY KEY (card_number),
         FOREIGN KEY (cid) REFERENCES Customers(cid)
-) engine=innodb;
+);
                 
 
 CREATE TABLE Drivers (
@@ -34,7 +34,7 @@ CREATE TABLE Drivers (
         bank_account_routing_number VARCHAR(20),
         PRIMARY KEY (did),
         FOREIGN KEY (did) REFERENCES Users(id)
-) engine=innodb;
+);
                 
 
 CREATE TABLE Restaurants (
@@ -45,14 +45,14 @@ CREATE TABLE Restaurants (
         bank_account_routing_number VARCHAR(20),
         last_bank_transaction_datetime  DATETIME, 
         PRIMARY KEY (rid)
-) engine=innodb;
+);
 
 CREATE TABLE Restaurants_cuisine (
         rid INT,
     cuisine_type VARCHAR(20),                            
         PRIMARY KEY (rid, cuisine_type),
         FOREIGN KEY (rid) REFERENCES Restaurants(rid)
-) engine=innodb;
+);
 
 CREATE TABLE Customers_review (
         cid INT,
@@ -62,7 +62,7 @@ CREATE TABLE Customers_review (
         PRIMARY KEY (cid,rid),
         FOREIGN KEY (cid) REFERENCES Customers(cid),
         FOREIGN KEY (rid) REFERENCES Restaurants(rid)
-) engine=innodb;
+);
 
 
 CREATE TABLE Orders (
@@ -76,13 +76,13 @@ CREATE TABLE Orders (
         FOREIGN KEY (cid) REFERENCES Customers(cid),
         FOREIGN KEY (did) REFERENCES Drivers(did),
         FOREIGN KEY (rid) REFERENCES Restaurants(rid)
-) engine=innodb;
+);
 
 CREATE TABLE Orders_status_code_text (
         order_status_code       INT,
         order_status_text       VARCHAR(40),
         PRIMARY KEY (order_status_code)
-) engine=innodb;
+);
 
 CREATE TABLE Orders_track_status (
         oid INT,
@@ -91,7 +91,7 @@ CREATE TABLE Orders_track_status (
         PRIMARY KEY (oid, order_status_code),
         FOREIGN KEY (oid) REFERENCES Orders(oid),
         FOREIGN KEY (order_status_code) REFERENCES Orders_status_code_text(order_status_code)
-) engine=innodb;
+);
 
 CREATE TABLE Dishes (
         rid INT,
@@ -99,7 +99,7 @@ CREATE TABLE Dishes (
         price DECIMAL(6,2),
         PRIMARY KEY (rid, name),
         FOREIGN KEY (rid) REFERENCES Restaurants(rid)
-) engine=innodb;
+);
                 
 
 CREATE TABLE Orders_Contain_Dishes (
@@ -110,7 +110,7 @@ CREATE TABLE Orders_Contain_Dishes (
         PRIMARY KEY (oid, rid, name),
         FOREIGN KEY (oid) REFERENCES Orders (oid),
         FOREIGN KEY (rid, name) REFERENCES Dishes(rid, name)
-) engine=innodb;
+);
 
 INSERT INTO Users VALUES (1,'Patrick M. Tyler','8045437860');
 INSERT INTO Users VALUES (2,'Danny C. Malveaux','2197757988');
