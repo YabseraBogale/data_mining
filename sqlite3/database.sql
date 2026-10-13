@@ -1,6 +1,3 @@
-CREATE DATABASE `deliber`; 
-USE `deliber`;
-
 CREATE TABLE Users (
         id         INT,
         name VARCHAR(40),
