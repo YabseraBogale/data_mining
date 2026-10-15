@@ -1,3 +1,4 @@
+-- sqlite
 CREATE TABLE Users (
         id         INT,
         name VARCHAR(40),
