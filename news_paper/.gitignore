@@ -7,7 +7,7 @@
 # ----------------------------------------------------------------------------
 # Remove the exclamation mark if you are writing a binary/application.
 # Keep the exclamation mark if you are writing a library crate.
-!Cargo.lock
+Cargo.lock
 
 # Development & Tooling Leftovers
 # ----------------------------------------------------------------------------
